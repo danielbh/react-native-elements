@@ -76,6 +76,7 @@ class SearchBar extends Component {
       placeholderTextColor,
       showLoading,
       loadingProps,
+      width,
       ...attributes
     } = this.props;
     const { hasFocus, isEmpty } = this.state;
@@ -84,7 +85,7 @@ class SearchBar extends Component {
       <Ionicon size={20} name={'ios-search'} color={IOS_GRAY} />
     );
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { width }]}>
         <Input
           {...attributes}
           onFocus={this.onFocus}
@@ -94,7 +95,7 @@ class SearchBar extends Component {
           inputStyle={[styles.input, inputStyle]}
           containerStyle={[
             styles.inputContainer,
-            !hasFocus && { width: SCREEN_WIDTH - 32, marginRight: 15 },
+            !hasFocus && { width: width - 32, marginRight: 15 },
             containerStyle,
           ]}
           leftIcon={noIcon ? undefined : leftIcon ? leftIcon : searchIcon}
@@ -150,6 +151,7 @@ SearchBar.propTypes = {
   rightIconContainerStyle: ViewPropTypes.style,
   inputStyle: Text.propTypes.style,
   placeholderTextColor: PropTypes.string,
+  width: PropTypes.number
 };
 
 SearchBar.defaultProps = {
@@ -161,11 +163,11 @@ SearchBar.defaultProps = {
   onClearText: null,
   onCancel: null,
   placeholderTextColor: IOS_GRAY,
+  width: SCREEN_WIDTH
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH,
     backgroundColor: '#f5f5f5',
     paddingBottom: 13,
     paddingTop: 13,
